@@ -29,13 +29,13 @@ console.log("asd");
 let arr = [1,0, -4]
 
 const mathDiscriminant = (array) => {
-  const numbers = [a, b, c] = array;
-  let discriminant = Math.pow(b, 2) - 4 * a * c;
+  [a, b, c] = array;
+  let discriminant = (b ** 2) - 4 * a * c;
   let x1 = Math.floor((Math.sqrt(discriminant) + a) / 2 * a);
   let x2 = -Math.floor((Math.sqrt(discriminant) + a) / 2 * a);
-  console.log(discriminant);
-  console.log(x1);
-  console.log(x2);
+
+
+  return [`дискриминант- ${discriminant} корни: х1 = ${x1} x2 = ${x2}`];
   
 }
 
