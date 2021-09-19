@@ -1,42 +1,60 @@
-console.log("asd");
+// 1) Написать функцию, которая принимает на вход 2 массива. На выходе функция должна выдать элемент, который в обоих массивах повторялся чаще всего
+// Пример:
+// Исходные массивы: [1, 2, 3, 3, 'a', 'test'], ['test', 2, 7,  'a', 'a']
+// Результат выполнения: yourFunc([1, 2, 3, 3, 'a', 'test'], ['test', 2, 7,  'a', 'a']) // 'a'
 
+let arr = [1, 2, 3, 3, 'a', 'test']
+let arr2 = ['test', 2, 7, 'a', 'a']
 
+const findElement = (array, array2) => {
+  let doubleArrays = array.concat(array2)
+  let counter = {}
 
-// написать функцию, с использованием новых фич ES6. Функция на вход принимает массив из трех ЦЕЛЫХ чисел (например [1, 0, -4]), которые являются коэффициентами квадратного уравнения. Далее преобразует массив в квадратное уравнение и выводит его в консоль.  Для  [1, 0, 4] это будет x^2 - 4 = 0 
- 
-// справка, квадратное уравнение имеет вид  
-// a*x^2 + b*x + c = 0 
-// Ваш массив на входе содержит коэффициенты в таком порядке: [a, b, c] 
- 
-// Далее нужно решить это уравнение школьным способом через дискриминант и вывести корни уравнения в консоль в формате  
-// x1 = ... 
-// x2 = ... 
- 
-// Учтите, что уравнение может иметь 2, 1 или 0 корней.  
- 
- 
-// Пример вывода в консоль функции, вызванной с параметром [1, 0, -4]: 
-// уравнение: x^2 - 4 = 0 
-// Дискриминант: 16 
-// Корни:  
-// x1 = 2 
-// x2 = -2 
+  doubleArrays.reduce((_, current) => {
+    counter[current] = (counter[current] || 0) + 1
+  })
 
+  let newRes = Object.entries(counter)
+  let min = 1,
+    findNum = ''
 
-//ax2 + bx + c = 0
-//дискриминант — это просто число D = b2 − 4ac.
+  for (let [keys, elem] of newRes) {
+    if (min < elem) min = elem
+    if (min == elem) findNum = keys
+  }
+  return findNum
+}
+console.log(findElement(arr, arr2))
 
-let arr = [1,0, -4]
+// 2) Написать функцию, которая принимает на входе массив и на выходе выдает новый массив без дублирующихся элементов
+// Пример:
+// Исходный массив: [1, 2, 3, 3, 'a', 'test']
+// Результат выполнения: yourFunc([1, 2, 3, 3, 'a', 'test']) // [1, 2, 3, 'a', 'test']
 
-const mathDiscriminant = (array) => {
-  [a, b, c] = array;
-  let discriminant = (b ** 2) - 4 * a * c;
-  let x1 = Math.floor((Math.sqrt(discriminant) + a) / 2 * a);
-  let x2 = -Math.floor((Math.sqrt(discriminant) + a) / 2 * a);
+let arr = [1, 2, 3, 3, 'a', 'test']
 
+const clearDoubleElement = (array) => [...new Set(array)]
 
-  return [`дискриминант- ${discriminant} корни: х1 = ${x1} x2 = ${x2}`];
-  
+// Пример: Исходный массив:
+// Результат выполнения: yourFunc([111896, 9999, 9985, 1024, 999999, 1000100, 60044943])
+// [111,90K, 10K, 9,99K 1,02K, 1M, 1M, 60,05M]
+
+let arr = [111896, 9999, 9985, 1024, 999999, 1000100, 60044943]
+
+const roundingNumbers = (array) => {
+  array = array.map((el) => '' + el)
+  return array
 }
 
-console.log(mathDiscriminant(arr))
+const treepleStep = (number) => {
+  number = number.join(',').split('.')
+  number[0] = number[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  let num = number.join('').replace(/\,/g, ' ').split(' ')
+
+  return num.map((elem) => {
+    return elem.length <= 7
+      ? (elem = Math.round(elem) + 'K')
+      : parseInt(elem) + 'M'
+  })
+}
+console.log(treepleStep(arr))
