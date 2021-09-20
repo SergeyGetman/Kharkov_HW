@@ -41,11 +41,6 @@ const clearDoubleElement = (array) => [...new Set(array)]
 
 let arr = [111896, 9999, 9985, 1024, 999999, 1000100, 60044943]
 
-const roundingNumbers = (array) => {
-  array = array.map((el) => '' + el)
-  return array
-}
-
 const treepleStep = (number) => {
   number = number.join(',').split('.')
   number[0] = number[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
