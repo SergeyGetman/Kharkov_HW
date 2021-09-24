@@ -1,14 +1,33 @@
-body{
-  background-color: rgb(226, 132, 95);
+body {
+  background-color: rgb(115, 104, 100);
 }
 
-h1{
-  font-style: italic;
-  font-size: 70px;
-  color: rgb(248, 248, 255);
+.inter {
+  height: 300px;
+  width: 300px;
+  margin-top: 22%;
+  margin-left: 30%;
+}
+.inner_intro {
+  top: 10px;
+}
+
+h1 {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(9, 10, 10);
+  font-style: initial;
+  font-size: 55px;
+  color: rgb(255, 255, 255);
   text-align: center;
-  margin-top: 50%;
+
   background: rgb(12, 10, 10);
   border-radius: 50%;
   box-shadow: 20px 15px 15px rgb(255, 253, 253);
+  border: 2px solid rgb(255, 255, 254);
+  height: 300px;
+  width: 300px;
+}
+h1:hover {
+  text-shadow: -1px -1px #000, 0 1px 0 #444;
+  color: #1a1a1a;
 }

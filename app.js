@@ -1,55 +1,74 @@
-// 1) Написать функцию, которая принимает на вход 2 массива. На выходе функция должна выдать элемент, который в обоих массивах повторялся чаще всего
-// Пример:
-// Исходные массивы: [1, 2, 3, 3, 'a', 'test'], ['test', 2, 7,  'a', 'a']
-// Результат выполнения: yourFunc([1, 2, 3, 3, 'a', 'test'], ['test', 2, 7,  'a', 'a']) // 'a'
+// 1) Написать функцию, которая раскладывает число на входе на простые множители
+// а) В императивном стиле
+// б) В декларативном стиле
 
-let arr = [1, 2, 3, 3, 'a', 'test']
-let arr2 = ['test', 2, 7, 'a', 'a']
+// 2) Реализуйте класс Validator, который будет иметь методы isEmail, isUrkainianPhoneNumber и isDate, которые будут возвращать true, если переданная строка является имейлом(включает в себя @ и домен), датой(в формате YYYY-MM-DD), номером телефона (включает в себя код Украины +38 и номер из 10 цифр)
 
-const findElement = (array, array2) => {
-  let doubleArrays = array.concat(array2)
-  let counter = {}
-
-  doubleArrays.reduce((_, current) => {
-    counter[current] = (counter[current] || 0) + 1
-  })
-
-  let newRes = Object.entries(counter)
-  let min = 1,
-    findNum = ''
-
-  for (let [keys, elem] of newRes) {
-    if (min < elem) min = elem
-    if (min == elem) findNum = keys
+// imperative style
+function getPrimeFactors(number) {
+  function isPrime(n) {
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+      console.log(i)
+      console.log(n)
+      if (n % i === 0) {
+        return false
+      }
+    }
+    return true
   }
-  return findNum
+
+  let sequence = []
+
+  for (let i = 2; i <= Math.sqrt(number); i++) {
+    if (number % i === 0 && isPrime(i)) {
+      sequence.push(i)
+    }
+  }
+
+  return sequence
 }
-console.log(findElement(arr, arr2))
 
-// 2) Написать функцию, которая принимает на входе массив и на выходе выдает новый массив без дублирующихся элементов
-// Пример:
-// Исходный массив: [1, 2, 3, 3, 'a', 'test']
-// Результат выполнения: yourFunc([1, 2, 3, 3, 'a', 'test']) // [1, 2, 3, 'a', 'test']
-
-let arr = [1, 2, 3, 3, 'a', 'test']
-
-const clearDoubleElement = (array) => [...new Set(array)]
-
-// Пример: Исходный массив:
-// Результат выполнения: yourFunc([111896, 9999, 9985, 1024, 999999, 1000100, 60044943])
-// [111,90K, 10K, 9,99K 1,02K, 1M, 1M, 60,05M]
-
-let arr = [111896, 9999, 9985, 1024, 999999, 1000100, 60044943]
-
-const treepleStep = (number) => {
-  number = number.join(',').split('.')
-  number[0] = number[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-  let num = number.join('').replace(/\,/g, ' ').split(' ')
-
-  return num.map((elem) => {
-    return elem.length <= 7
-      ? (elem = Math.round(elem) + 'K')
-      : parseInt(elem) + 'M'
-  })
+//declerative
+function fact(num) {
+  let b = 2
+  let steps = ''
+  while (num > b) {
+    while (num % b == 0) {
+      num /= b
+      steps += b
+    }
+    b++
+    if (num == b) {
+      steps += b
+    }
+  }
+  return steps.split('')
 }
-console.log(treepleStep(arr))
+
+class Validator {
+  constructor() {}
+
+  isEmail(value) {
+    if (typeof value !== 'string') throw new Error('Вводите только строку')
+    let rega = new RegExp(/@\w+\.\w+/g)
+    if (rega.test(value)) return true
+    return false
+  }
+  isUrkainianPhoneNumber(number) {
+    //entered number inside ""
+    if (number.length < 13)
+      throw new Error(
+        'Введите номер в формате +38 + ваш мобильный номер, недостаточно цифр',
+      )
+    if (number.length > 13)
+      throw new Error('Введенные цифры не соотвецтвуют длинне номера')
+    if (/\+38\d{10}/g.test(number)) return true
+  }
+
+  isDate(date) {
+    date = date.replace(/-|\*|\ |\.|\//g, '-')
+    let reg = /\d{4}\-\d{2}\-\d{2}/g
+    if (reg.test(date) && date.length < 11) return true
+    return false
+  }
+}
