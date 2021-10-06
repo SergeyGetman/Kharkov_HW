@@ -62,8 +62,7 @@ function abort(url) {
 
     xhr.onload = function () {
       if (xhr.status == 200) resolve('Успех')
-      if (xhr.status > 300 && xhr.status < 400)
-        reject(new Error('4erti ebanue !'))
+      if (xhr.status > 300 && xhr.status < 400) reject(new Error('no Error !'))
       let responseObj = xhr.response
 
       let text = function (param) {
